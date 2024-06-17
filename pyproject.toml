@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "either"
+version = "0.1.0"
+description = ""
+authors = ["Markus Iorio <mbalzert@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[tool.poetry.group.dev.dependencies]
+sourcery = "^1.19.0"
+mypy = "^1.10.0"
+pytest = "^8.2.2"
+ruff = "^0.4.9"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
