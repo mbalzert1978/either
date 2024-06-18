@@ -16,8 +16,6 @@ To install the dependencies, use [Poetry](https://python-poetry.org/):
 poetry install
 ```
 
-Sure, here is the updated usage block for the README file:
-
 ## Usage
 
 ### Creating Instances
