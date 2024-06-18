@@ -114,15 +114,15 @@ class Either(typing.Generic[TOk, TErr]):
 
     def match(
         self,
-        left: typing.Callable[[TOk], T],
-        right: typing.Callable[[TErr], T],
+        ok_fn: typing.Callable[[TOk], T],
+        err_fn: typing.Callable[[TErr], T],
     ) -> T:
         """
         Matches on the Either instance and applies the appropriate function.
 
         Args:
-            left (typing.Callable[[TOk], T]): Function to apply if the instance is Ok.
-            right (typing.Callable[[TErr], T]): Function to apply if the instance is Err.
+            ok_fn (typing.Callable[[TOk], T]): Function to apply if the instance is Ok.
+            err_fn (typing.Callable[[TErr], T]): Function to apply if the instance is Err.
 
         Returns:
             T: The result of applying the appropriate function.
@@ -133,23 +133,23 @@ class Either(typing.Generic[TOk, TErr]):
         Examples:
             >>> result = Either.Ok(42)
             >>> result.match(
-            ...     left=lambda ok: f"Success: {ok}",
-            ...     right=lambda err: f"Error: {err}"
+            ...     ok_fn=lambda ok: f"Success: {ok}",
+            ...     err_fn=lambda err: f"Error: {err}"
             ... )
             'Success: 42'
 
             >>> error = Either.Err("An error occurred")
             >>> error.match(
-            ...     left=lambda ok: f"Success: {ok}",
-            ...     right=lambda err: f"Error: {err}"
+            ...     ok_fn=lambda ok: f"Success: {ok}",
+            ...     err_fn=lambda err: f"Error: {err}"
             ... )
             'Error: An error occurred'
         """
         match (self.is_ok, self.ok, self.err):
             case (True, _ok, None) if _ok is not None:
-                return left(_ok)
+                return ok_fn(_ok)
             case (False, None, _err) if _err is not None:
-                return right(_err)
+                return err_fn(_err)
             case _:
                 err = "Either is in an invalid state."
                 raise UnreachableError(err)
